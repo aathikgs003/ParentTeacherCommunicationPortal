@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Send Message to Parent - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="send-message">
+    <h2>Send Message to {{ parent.username }}</h2>
+    <a href="{{ url_for('teacher.contact_parents') }}" class="btn btn-secondary">Back to Parents List</a>
+    <div class="parent-info">
+        <p><strong>Parent:</strong> {{ parent.username }}</p>
+        <p><strong>Email:</strong> {{ parent.email }}</p>
+    </div>
+    <form method="POST">
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Message:</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}

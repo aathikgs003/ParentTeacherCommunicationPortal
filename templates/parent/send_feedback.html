@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Send Feedback - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Send Feedback to Teacher</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="teacher_id">Select Teacher</label>
+            <select id="teacher_id" name="teacher_id" required>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.username }} ({{ teacher.email }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Feedback</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Feedback</button>
+    </form>
+</div>
+{% endblock %}

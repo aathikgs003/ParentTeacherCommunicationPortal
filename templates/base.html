@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Parent-Teacher Communication Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <div class="full-width-layout">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="nav-container">
+                <h1><i class="fas fa-school"></i> PTCP</h1>
+                <nav class="main-nav">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+
+                        {% if current_user.role == 'admin' %}
+                            <li>
+                                <a href="{{ url_for('admin.dashboard') }}" class="{% if 'admin' in request.endpoint %}active{% endif %}">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('admin.manage_users') }}" class="{% if request.endpoint == 'admin.manage_users' %}active{% endif %}">
+                                    <i class="fas fa-users"></i> Manage Users
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('admin.manage_students') }}" class="{% if request.endpoint == 'admin.manage_students' %}active{% endif %}">
+                                    <i class="fas fa-user-graduate"></i> Manage Students
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('admin.view_logs') }}" class="{% if request.endpoint == 'admin.view_logs' %}active{% endif %}">
+                                    <i class="fas fa-history"></i> Activity Logs
+                                </a>
+                            </li>
+                        {% elif current_user.role == 'teacher' %}
+                            <li>
+                                <a href="{{ url_for('teacher.dashboard') }}" class="{% if request.endpoint == 'teacher.dashboard' %}active{% endif %}">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.view_students') }}" class="{% if request.endpoint == 'teacher.view_students' %}active{% endif %}">
+                                    <i class="fas fa-user-graduate"></i> My Students
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.announcements') }}" class="{% if request.endpoint == 'teacher.announcements' %}active{% endif %}">
+                                    <i class="fas fa-bullhorn"></i> Announcements
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.view_messages') }}" class="{% if request.endpoint == 'teacher.view_messages' %}active{% endif %}">
+                                    <i class="fas fa-envelope"></i> Messages
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.contact_parents') }}" class="{% if request.endpoint == 'teacher.contact_parents' %}active{% endif %}">
+                                    <i class="fas fa-comments"></i> Contact Parents
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.upload_report') }}" class="{% if request.endpoint == 'teacher.upload_report' %}active{% endif %}">
+                                    <i class="fas fa-file-alt"></i> Upload Report
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.attendance') }}" class="{% if request.endpoint == 'teacher.attendance' %}active{% endif %}">
+                                    <i class="fas fa-calendar-check"></i> Attendance
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('teacher.profile') }}" class="{% if request.endpoint == 'teacher.profile' %}active{% endif %}">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                            </li>
+                        {% elif current_user.role == 'parent' %}
+                            <li>
+                                <a href="{{ url_for('parent.dashboard') }}" class="{% if request.endpoint == 'parent.dashboard' %}active{% endif %}">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.view_announcements') }}" class="{% if request.endpoint == 'parent.view_announcements' %}active{% endif %}">
+                                    <i class="fas fa-bullhorn"></i> Announcements
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.view_messages') }}" class="{% if request.endpoint == 'parent.view_messages' %}active{% endif %}">
+                                    <i class="fas fa-envelope"></i> Messages
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.contact_teacher_list') }}" class="{% if request.endpoint == 'parent.contact_teacher_list' %}active{% endif %}">
+                                    <i class="fas fa-comments"></i> Contact Teachers
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.view_reports') }}" class="{% if request.endpoint == 'parent.view_reports' %}active{% endif %}">
+                                    <i class="fas fa-file-alt"></i> Reports
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.attendance_log') }}" class="{% if request.endpoint == 'parent.attendance_log' %}active{% endif %}">
+                                    <i class="fas fa-calendar-check"></i> Attendance
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('parent.profile') }}" class="{% if request.endpoint == 'parent.profile' %}active{% endif %}">
+                                    <i class="fas fa-user"></i> Profile
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li class="user-info">
+                            <span>Welcome, {{ current_user.username }} ({{ current_user.role.title() }})</span>
+                        </li>
+                        <li class="logout">
+                            <a href="{{ url_for('auth.logout') }}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content-full">
+            <div class="content-body">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for message in messages %}
+                                <div class="flash-message">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    {% else %}
+    <!-- Public Layout -->
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1><a href="{{ url_for('main.index') }}">PTCP</a></h1>
+                <ul>
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block public_content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Parent-Teacher Communication Portal</p>
+    </footer>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

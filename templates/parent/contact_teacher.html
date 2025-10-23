@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Teacher - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="contact-teacher">
+    <h2>Contact {{ teacher.username }}</h2>
+    <a href="{{ url_for('parent.contact_teacher_list') }}" class="btn btn-secondary">Back to Teachers List</a>
+    <div class="teacher-info">
+        <p><strong>Teacher:</strong> {{ teacher.username }}</p>
+        <p><strong>Email:</strong> {{ teacher.email }}</p>
+    </div>
+    <form method="POST">
+        <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Message:</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}

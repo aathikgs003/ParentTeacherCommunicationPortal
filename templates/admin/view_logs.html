@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}View Logs - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="logs-list">
+    <h2>System Activity Logs</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    {% for log in logs %}
+        <div class="log-entry">
+            <p><strong>{{ log.type }}</strong></p>
+            <p>{{ log.description }}</p>
+            <small>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        </div>
+    {% endfor %}
+    {% if not logs %}
+        <p>No recent activity.</p>
+    {% endif %}
+</div>
+{% endblock %}

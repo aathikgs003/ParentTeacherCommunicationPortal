@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}View Messages - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="messages-list">
+    <h2>My Messages</h2>
+    <a href="{{ url_for('parent.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    {% for message in messages %}
+        <div class="message-item">
+            <h3>{{ message.subject }}</h3>
+            <p><strong>From:</strong> {{ message.sender.username }} ({{ message.sender.email }})</p>
+            <p>{{ message.content }}</p>
+            <small>Sent on: {{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        </div>
+    {% endfor %}
+    {% if not messages %}
+        <p>No messages received yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

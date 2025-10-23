@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}My Students - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="students-list">
+    <h2>My Students</h2>
+    <a href="{{ url_for('teacher.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="students-grid">
+        {% for student in students %}
+            <div class="student-card">
+                <h3>{{ student.name }}</h3>
+                <p><strong>Grade:</strong> {{ student.grade }}</p>
+                <p><strong>Parent:</strong> {{ student.parent.username }} ({{ student.parent.email }})</p>
+                <div class="student-actions">
+                    <a href="{{ url_for('teacher.send_message_to_parent', parent_id=student.parent_id) }}" class="btn btn-primary">Contact Parent</a>
+                    <a href="{{ url_for('teacher.upload_report') }}" class="btn btn-secondary">Upload Report</a>
+                </div>
+            </div>
+        {% endfor %}
+        {% if not students %}
+            <p>No students assigned yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

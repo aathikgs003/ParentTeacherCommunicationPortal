@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Report - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="attendance-report">
+    <h2>Attendance Report</h2>
+    <a href="{{ url_for('teacher.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="attendance-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in attendance_records %}
+                    <tr>
+                        <td>{{ record.student.name }}</td>
+                        <td>{{ record.date }}</td>
+                        <td class="{% if record.status == 'Present' %}present{% elif record.status == 'Absent' %}absent{% else %}late{% endif %}">{{ record.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not attendance_records %}
+            <p>No attendance records found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

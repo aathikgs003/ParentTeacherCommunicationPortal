@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Assign Teacher - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="assign-teacher">
+    <h2>Assign Teacher to {{ student.name }}</h2>
+    <a href="{{ url_for('admin.manage_students') }}" class="btn btn-secondary">Back to Manage Students</a>
+    <form method="POST">
+        <div class="form-group">
+            <label for="teacher_id">Select Teacher:</label>
+            <select id="teacher_id" name="teacher_id" required>
+                <option value="">Select Teacher</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}" {% if student.teacher_id == teacher.id %}selected{% endif %}>{{ teacher.username }} ({{ teacher.email }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Assign Teacher</button>
+    </form>
+</div>
+{% endblock %}

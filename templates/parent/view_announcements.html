@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="announcements-list">
+    <h2>Teacher Announcements</h2>
+    {% for announcement in announcements %}
+        <div class="announcement">
+            <h3>{{ announcement.title }}</h3>
+            <p>{{ announcement.content }}</p>
+            <small>Posted by {{ announcement.teacher.username }} on {{ announcement.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+    {% endfor %}
+    {% if not announcements %}
+        <p>No announcements available.</p>
+    {% endif %}
+</div>
+{% endblock %}

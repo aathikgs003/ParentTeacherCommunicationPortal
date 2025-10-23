@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Log - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="attendance-list">
+    <h2>Student Attendance Records</h2>
+    <table class="attendance-table">
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Marked by</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_records %}
+                <tr>
+                    <td>{{ record.student.name }}</td>
+                    <td>{{ record.date }}</td>
+                    <td class="status-{{ record.status }}">{{ record.status.title() }}</td>
+                    <td>{{ record.teacher.username }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not attendance_records %}
+        <p>No attendance records available.</p>
+    {% endif %}
+</div>
+{% endblock %}

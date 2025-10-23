@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Teachers - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="contact-teachers">
+    <h2>Contact My Children's Teachers</h2>
+    <a href="{{ url_for('parent.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="teachers-list">
+        {% for teacher in teachers %}
+            <div class="teacher-card">
+                <h3>{{ teacher.username }}</h3>
+                <p><strong>Email:</strong> {{ teacher.email }}</p>
+                <a href="{{ url_for('parent.contact_teacher', teacher_id=teacher.id) }}" class="btn btn-primary">Contact Teacher</a>
+            </div>
+        {% endfor %}
+        {% if not teachers %}
+            <p>No teachers assigned to your children yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

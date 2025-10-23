@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Add Student - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="add-student">
+    <h2>Add New Student</h2>
+    <a href="{{ url_for('admin.manage_students') }}" class="btn btn-secondary">Back to Manage Students</a>
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Student Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="grade">Grade:</label>
+            <input type="text" id="grade" name="grade" required>
+        </div>
+        <div class="form-group">
+            <label for="parent_id">Parent:</label>
+            <select id="parent_id" name="parent_id" required>
+                <option value="">Select Parent</option>
+                {% for parent in parents %}
+                    <option value="{{ parent.id }}">{{ parent.username }} ({{ parent.email }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="teacher_id">Teacher:</label>
+            <select id="teacher_id" name="teacher_id" required>
+                <option value="">Select Teacher</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher.username }} ({{ teacher.email }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+</div>
+{% endblock %}

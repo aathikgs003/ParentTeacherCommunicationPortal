@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Post Announcement</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Announcement</button>
+    </form>
+</div>
+
+<div class="announcements-list">
+    <h2>Your Announcements</h2>
+    {% for announcement in announcements %}
+        <div class="announcement">
+            <h3>{{ announcement.title }}</h3>
+            <p>{{ announcement.content }}</p>
+            <small>Posted on {{ announcement.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

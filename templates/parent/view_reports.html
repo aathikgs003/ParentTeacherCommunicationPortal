@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}View Reports - Parent Dashboard{% endblock %}
+
+{% block content %}
+<div class="reports-list">
+    <h2>Student Reports</h2>
+    {% for report in reports %}
+        <div class="report">
+            <h3>{{ report.title }}</h3>
+            <p><strong>Student:</strong> {{ report.student.name }}</p>
+            <p><strong>Teacher:</strong> {{ report.teacher.username }}</p>
+            <div class="report-content">{{ report.content }}</div>
+            <small>Uploaded on {{ report.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+    {% endfor %}
+    {% if not reports %}
+        <p>No reports available.</p>
+    {% endif %}
+</div>
+{% endblock %}

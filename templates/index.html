@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Parent-Teacher Communication Portal{% endblock %}
+
+{% block public_content %}
+<div class="hero">
+    <h1>Welcome to Parent-Teacher Communication Portal</h1>
+    <p>Connect parents, teachers, and administrators for better student outcomes.</p>
+    {% if not current_user.is_authenticated %}
+        <div class="cta-buttons">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">Register</a>
+        </div>
+    {% endif %}
+</div>
+
+<div class="features">
+    <div class="feature">
+        <h3>For Teachers</h3>
+        <p>Post announcements, send messages to parents, upload reports, and track attendance.</p>
+    </div>
+    <div class="feature">
+        <h3>For Parents</h3>
+        <p>View announcements, send feedback to teachers, check reports, and monitor attendance.</p>
+    </div>
+    <div class="feature">
+        <h3>For Admins</h3>
+        <p>Manage users and view system logs.</p>
+    </div>
+</div>
+{% endblock %}

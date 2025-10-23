@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}My Reports - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="reports-list">
+    <h2>My Reports</h2>
+    <a href="{{ url_for('teacher.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="reports-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.title }}</td>
+                        <td>{{ report.student.name }}</td>
+                        <td>{{ report.timestamp.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewReport({{ report.id }})">View</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not reports %}
+            <p>No reports uploaded yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function viewReport(reportId) {
+    // This would typically open a modal or redirect to a detailed view
+    alert('Viewing report ' + reportId);
+}
+</script>
+{% endblock %}

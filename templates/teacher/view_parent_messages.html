@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}View Messages - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="messages-list">
+    <h2>Messages from Parents</h2>
+    {% for message in messages %}
+        <div class="message">
+            <h3>{{ message.subject }}</h3>
+            <p><strong>From:</strong> {{ message.sender.username }}</p>
+            <p>{{ message.content }}</p>
+            <small>Received on {{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+    {% endfor %}
+    {% if not messages %}
+        <p>No messages received yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

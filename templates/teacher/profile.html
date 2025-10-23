@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <h2>My Profile</h2>
+    <a href="{{ url_for('teacher.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    <div class="profile-info">
+        <h3>Personal Information</h3>
+        <p><strong>Username:</strong> {{ current_user.username }}</p>
+        <p><strong>Email:</strong> {{ current_user.email }}</p>
+        <p><strong>Role:</strong> {{ current_user.role.title() }}</p>
+    </div>
+    <div class="students-info">
+        <h3>My Students</h3>
+        {% for student in students %}
+            <div class="student-card">
+                <h4>{{ student.name }}</h4>
+                <p><strong>Grade:</strong> {{ student.grade }}</p>
+                <p><strong>Parent:</strong> {{ student.parent.username }}</p>
+            </div>
+        {% endfor %}
+        {% if not students %}
+            <p>No students assigned yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
